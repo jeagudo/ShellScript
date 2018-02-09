@@ -15,6 +15,7 @@
 #El sistema creará un directorio /copiaSeg y dentro un directorio por usuario, si no existiese, que sólo podrá ser accesible por su dueño. En el interior de este directorio se almacenarán tantas copias de seguridad copiaSeg_hhmmDDMMYYYY.tgz como defina numeroCopias. Paraque un fichero o directorio sea añadido a la copia debe ser de su propiedad.
 #El script borrará las copias más antiguas manteniendo en el sistema sólo las que se indiquen en el fichero de configuración copiaSeg.dat y, si no está definido numeroCopias, lo que marque el valor por defecto.
 
+carpeta="/copiaSeg/"
 fichero=".copiaSeg.dat"
 numeroCopias=2
 contenidoCopia="/home/quique/"
@@ -81,9 +82,9 @@ else
 fi
 #Solo para un usuario
 #Comprobamos que existe la carpeta copiaSeg
-if [ ! -d "/copiaSeg" ]; then
+if [ ! -d $carpeta ]; then
   echo "Creando carpeta de copias de seguridad..."
-  mkdir /copiaSeg
+  mkdir $carpeta
 fi
 
 #Realizando copia de seguridad
@@ -99,28 +100,26 @@ fi
 for usu in $usuarios;
 do
   echo "------------------- $usu --------------------"
-  if [ ! -d "/copiaSeg/"$usu"" ]; then
+  if [ ! -d $carpeta$usu"" ]; then
     echo "Creando carpeta para las copias de seguridad de usuario $usu"
-    mkdir /copiaSeg/$usu
-    chown $usu /copiaSeg/$usu
- #   chgrp $usu /copiaSeg/$usu
-    chmod 444 /copiaSeg/$usu
+    mkdir $carpeta$usu
+    chown $usu $carpeta$usu
+ #   chgrp $usu $carpeta$usu
+    chmod 444 $carpeta$usu
   fi
   #Creamos copia de seguridad
-  tar -zcf /copiaSeg/$usu/copiaSeg_$fecha.tgz $contenido 2> /dev/null
-  chown $usu /copiaSeg/$usu/copiaSeg_$fecha.tgz
+  tar -zcf $carpeta$usu/copiaSeg_$fecha.tgz $contenido 2> /dev/null
+  chown $usu $carpeta$usu/copiaSeg_$fecha.tgz
   echo "Copia de seguridad realizada: $usu"
-#  chgrp $usu /copiaSeg/$usu/copiaSeg_$fecha.tgz
+#  chgrp $usu $carpeta$usu/copiaSeg_$fecha.tgz
   #Comprobando # de copias de seguridad
-  nfich=$(ls  /copiaSeg/$usu/ | wc -l)
+  nfich=$(ls  $carpeta$usu/ | wc -l)
   if [ $nfich -gt $numeroCopias ]; then
     nBorrar=$(($nfich-$numeroCopias)) #Número de ficheros a borrar (Los más antiguos)
-    borrar=$(ls -tr /copiaSeg/$usu/ | head -n$nBorrar )
+    borrar=$(ls -tr $carpeta$usu/ | head -n$nBorrar )
     for i in $borrar; #Borramos copias antiguas
     do
-      rm "/copiaSeg/$usu/$i"
+      rm "$carpeta$usu/$i"
     done
   fi
 done
-
-
