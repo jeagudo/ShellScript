@@ -1,0 +1,4 @@
+#Copias que se desean mantener
+numeroCopias=2
+#Contenido de la copia, único obligatorio
+contenidoCopia=/home/quique/quique:pepito.txt:historia.txt
