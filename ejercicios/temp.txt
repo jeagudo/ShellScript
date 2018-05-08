@@ -1,0 +1,8 @@
+Dirección                TipoHW  DirecciónHW         Indic Máscara         Interfaz
+192.168.1.104            ether   58:4c:5d:40:b0:e3   C                     enp0s3
+Livebox                  ether   a8:d3:f7:ae:f5:f4   C                     enp0s3
+192.168.1.103            ether   2c:8a:72:35:5a:10   C                     enp0s3
+192.168.1.101            ether   48:d6:d5:21:92:aa   C                     enp0s3
+192.168.1.105            ether   e0:3f:49:8c:ea:61   C                     enp0s3
+192.168.1.102            ether   e0:19:1d:a1:20:68   C                     enp0s3
+192.168.1.100            ether   b8:27:eb:28:46:38   C                     enp0s3

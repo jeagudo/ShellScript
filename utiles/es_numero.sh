@@ -22,3 +22,12 @@ if [[ $1 = *[[:digit:]]* ]]; then
 else
   echo "No es numero" $1
 fi
+
+#Metodo 4 es un número
+if [ $1 != "0" -a "$(echo $1 | awk '{ print $1*1 }')" != "$1" ]; then
+  echo "No Es numero" $1
+else
+  echo "Es numero" $1
+fi
+
+echo $(echo $1 | awk '{ print $1*1 }')

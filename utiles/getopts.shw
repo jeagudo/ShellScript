@@ -1,0 +1,10 @@
+#!/bin/bash
+#J. Enrique Agudo
+
+while getopts "h:s:" option ; do
+  case "$option" in
+    h) echo "ayuda" ;;
+    s) echo $OPTARG  ;;
+    *) echo "Invalid" ; exit 1 ;;
+  esac
+done
